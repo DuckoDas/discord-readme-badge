@@ -5,10 +5,16 @@ const imageToBase64 = require("image-to-base64");
 
 const allowlistGames = require("../src/allowlistGames");
 
-const truncate = (input) => (input.length > 32 ? `${input.substring(0, 32)}...` : input);
+const truncate = (input) =>
+  input.length > 32 ? `${input.substring(0, 32)}...` : input;
 
 const encodeHTML = (input) => {
-  return input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+  return input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 };
 
 const processText = (input) => {
@@ -41,9 +47,21 @@ async function parsePresence(user) {
   }
   const status = statuses.desktop || statuses.mobile || statuses.web;
 
-  const playingRichGame = user.presence.activities.reverse().find((e) => allowlistGames.includes(e.name.toLowerCase()) && (e.details || e.state));
-  const playingGame = user.presence.activities.reverse().find((e) => allowlistGames.includes(e.name.toLowerCase()) && !e.details && !e.state);
-  const spotifyGame = user.presence.activities.find((e) => e.type == "LISTENING" && e.name == "Spotify");
+  const playingRichGame = user.presence.activities
+    .reverse()
+    .find(
+      (e) =>
+        allowlistGames.includes(e.name.toLowerCase()) && (e.details || e.state)
+    );
+  const playingGame = user.presence.activities
+    .reverse()
+    .find(
+      (e) =>
+        allowlistGames.includes(e.name.toLowerCase()) && !e.details && !e.state
+    );
+  const spotifyGame = user.presence.activities.find(
+    (e) => e.type == "LISTENING" && e.name == "Spotify"
+  );
 
   const gameObject = playingRichGame || playingGame || spotifyGame;
 
@@ -89,11 +107,17 @@ async function parsePresence(user) {
     // "mp:" prefixed assets don't use keys and will use different image url formatting
     // as according to https://discord.com/developers/docs/topics/gateway-events#activity-object-activity-asset-image
     if (gameObject.assets.largeImage.startsWith("mp:")) {
-      detailsImage = `https://media.discordapp.net/${gameObject.assets.largeImage.substring(3)}`;
+      detailsImage = `https://media.discordapp.net/${gameObject.assets.largeImage.substring(
+        3
+      )}`;
     } else {
       detailsImage = `https://cdn.discordapp.com/app-assets/${gameObject.applicationID}/${gameObject.assets.largeImage}.png`;
 
-      if (game == "Spotify") detailsImage = `https://i.scdn.co/image/${gameObject.assets.largeImage.replace("spotify:", "")}`;
+      if (game == "Spotify")
+        detailsImage = `https://i.scdn.co/image/${gameObject.assets.largeImage.replace(
+          "spotify:",
+          ""
+        )}`;
     }
 
     detailsImage = await imageToBase64(detailsImage);
@@ -124,28 +148,32 @@ module.exports = async (req, res) => {
   const client = new Discord.Client();
 
   client.login(process.env.DISCORD_BOT_TOKEN).then(async () => {
-    const member = await client.guilds.fetch(process.env.DISCORD_GUILD_ID).then(async (guild) => {
-      return await guild.members
-        .fetch({
-          user: id,
-          cache: false,
-          force: true,
-        })
-        .catch((error) => {
-          return error;
-        });
-    });
+    const member = await client.guilds
+      .fetch(process.env.DISCORD_GUILD_ID)
+      .then(async (guild) => {
+        return await guild.members
+          .fetch({
+            user: id,
+            cache: false,
+            force: true,
+          })
+          .catch((error) => {
+            return error;
+          });
+      });
 
     let card;
     if (member instanceof Discord.DiscordAPIError) {
       card = new Card({
         username: "Error",
-        pfpImage: "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
+        pfpImage:
+          "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
         status: "dnd",
         game: "DuckoDas/discord-readme-badge",
         gameType: "Check",
         details: processText(member.toString()),
-        detailsImage: "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
+        detailsImage:
+          "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
         state: "Are you in the server? Correct ID?",
         height: 187,
       });
