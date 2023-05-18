@@ -140,9 +140,9 @@ module.exports = async (req, res) => {
     if (member instanceof Discord.DiscordAPIError) {
       card = new Card({
         username: "Error",
-        pfpImage: "../src/assets/red-moderator.png",
+        pfpImage: "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
         status: "dnd",
-        game: "SapphireDevs/discord-readme-badge",
+        game: "DuckoDas/discord-readme-badge",
         gameType: "Check",
         details: processText(member.toString()),
         detailsImage: "https://sparkcdnwus2.azureedge.net/sparkimageassets/XPDC2RH70K22MN-08afd558-a61c-4a63-9171-d3f199738e9f",
