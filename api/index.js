@@ -135,7 +135,6 @@ module.exports = async (req, res) => {
           return error;
         });
     });
-    client.destroy();
 
     let card;
     if (member instanceof Discord.DiscordAPIError) {
