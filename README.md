@@ -2,18 +2,18 @@
 
 <h1 align="center">Discord README Badge</h1>
 
-Working in an IDE with Rich Presence on? Show off what you're working on with a README badge! Comes as a svg you can add anywhere you'd like. Inspired by [kittinan/spotify-github-profile](https://github.com/kittinan/spotify-github-profile) and [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats). Built by leveraging Vercel's serverless functions.
+Working in an IDE with Rich Presence on? Show off what you're working on with a README badge! Comes as a svg you can add anywhere you'd like. Built by leveraging Vercel's serverless functions.
 
 ## Getting started
 
 First off, you will need your Discord user ID. If you're unsure how to get your Discord user ID, follow [this guide](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-).
 
-In order to grab your Discord status and Rich Presence data, you will have to join [this discord server](https://discord.gg/MqSew5KzYp). For privacy's sake, there is no members list, you'll temporarily join a voice channel (where invites can be created). You can leave it when you join the Discord server.
+In order to grab your Discord status and Rich Presence data, you will have to join [this discord server](https://discord.gg/rTT52gJC3J).
 
 Once you've joined, you can add a badge to your profile using this snippet:
 
 ```
-![My Discord](https://discord-readme-badge.vercel.app/api?id=<your discord id>)
+![My Discord](https://badge.ducko.dev/api/?id=DISCORD_USER_ID)
 ```
 
 It should look something like this:
@@ -38,28 +38,3 @@ If you're not playing anything, it will just show your status:
 If you're listening to some tunes on Spotify, it will show what you're listening to:
 
 <p><img alt="Card with Spotify" src="./src/assets/example-spotify.png" /></p>
-
-## Project Setup
-
-**This project depends on Vercel's serverless functions.** First install the Vercel CLI by doing `npm i -g vercel`.
-
-If you'd like to run this project locally, you will first need a Discord bot account. You can create one by following [this guide](https://discordpy.readthedocs.io/en/stable/discord.html).
-
-**Very important!** In Bots > Privileged Gateway Intents, make sure "Presence Intent" and "Server Members Intent" is enabled. The bot won't be able to get presence data without these enabled. Copy the bot token as you'll need it later.
-
-This project also requires a Discord server where the bot will be. Invite the bot you made to a Discord server and copy that server's ID. Make sure the bot has permissions to see all members.
-
-Once you have a bot account and a server with the bot in it, clone this repo and rename `.env.example` to `.env`, filling out the required values. Now open a command prompt and do the following command in the project directory:
-
-```
-vercel dev
-```
-
-On first start Vercel may ask you to link this project. Set it up and you should be greeted with:
-
-```
-Vercel CLI
-> Ready! Available at http://localhost:3000
-```
-
-Go to `http://localhost:3000/api?id=<your discord user id>` and you should see this project working locally on your machine.
