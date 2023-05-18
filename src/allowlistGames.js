@@ -16,6 +16,7 @@ module.exports = [
   "forza horizon",
   "visual studio code",
   "visual studio",
+  "code",
   "atom",
   "sublime text",
   "adobe illustrator",
